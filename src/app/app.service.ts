@@ -11,21 +11,29 @@ export class AppService {
   }
 }
 export class Card {
-  CMD_CID = null;
-  CMD_THFULLNAME = null;
-  CMD_ENFULLNAME = null;
-  CMD_BIRTH = null;
-  CMD_GENDER = null;
-  CMD_ISSUER = null;
-  CMD_ISSUE = null;
-  CMD_EXPIRE = null;
-  CMD_ADDRESS = {
+  citizen_id = null;
+  th_name = {
+    prefix: null,
+    firstname: null,
+    lastname: null,
+  };
+  en_name = {
+    prefix: null,
+    firstname: null,
+    lastname: null,
+  };
+  gender = null;
+  birth = null;
+  issuer = null;
+  issue = null;
+  expire = null;
+  address = {
     address: null,
     sub_district: null,
     district: null,
     provice: null
   };
-  CMD_PHOTO_RAW = null;
+  photo = null;
   constructor(
   ) { }
 

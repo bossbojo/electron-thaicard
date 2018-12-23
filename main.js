@@ -98,6 +98,33 @@ const thaicard = {
     CMD_PHOTO: [],
     CMD_PHOTO_RAW: '',
 }
+
+const thaicard_master = {
+    citizen_id:null,
+    th_name:{
+      prefix: null,
+      firstname: null,
+      lastname: null,
+    },
+    en_name:{
+      prefix: null,
+      firstname: null,
+      lastname: null,
+    },
+    gender:null,
+    birth:null,
+    issuer:null,
+    issue:null,
+    expire:null,
+    address:{
+      address1: null,
+      sub_district: null,
+      district: null,
+      provice: null
+    },
+    photo :null,
+}
+
 var count = 0;
 
 ipcMain.on('on-active-reader-card', (event_, arg) => {
@@ -265,21 +292,45 @@ ipcMain.on('on-active-reader-card', (event_, arg) => {
 
 
 function ConverTIS620() {
-    thaicard.CMD_CID = iconv.decode(Buffer.from(thaicard.CMD_CID.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_THFULLNAME = iconv.decode(Buffer.from(thaicard.CMD_THFULLNAME.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_ENFULLNAME = iconv.decode(Buffer.from(thaicard.CMD_ENFULLNAME.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_BIRTH = iconv.decode(Buffer.from(thaicard.CMD_BIRTH.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_GENDER = iconv.decode(Buffer.from(thaicard.CMD_GENDER.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_ISSUER = iconv.decode(Buffer.from(thaicard.CMD_ISSUER.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_ISSUE = iconv.decode(Buffer.from(thaicard.CMD_ISSUE.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_EXPIRE = iconv.decode(Buffer.from(thaicard.CMD_EXPIRE.split('900')[0], 'hex'), "TIS-620");
-    thaicard.CMD_ADDRESS = iconv.decode(Buffer.from(thaicard.CMD_ADDRESS.split('900')[0], 'hex'), "TIS-620");
+    console.log(thaicard.CMD_ENFULLNAME.split('900')[0]);
+    
+    thaicard.CMD_CID = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_CID), 'hex'), "TIS-620");
+    thaicard.CMD_THFULLNAME = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_THFULLNAME), 'hex'), "TIS-620");
+    thaicard.CMD_ENFULLNAME = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ENFULLNAME), 'hex'), "TIS-620");
+    thaicard.CMD_BIRTH = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_BIRTH), 'hex'), "TIS-620");
+    thaicard.CMD_GENDER = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_GENDER), 'hex'), "TIS-620");
+    thaicard.CMD_ISSUER = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ISSUER), 'hex'), "TIS-620");
+    thaicard.CMD_ISSUE = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ISSUE), 'hex'), "TIS-620");
+    thaicard.CMD_EXPIRE = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_EXPIRE), 'hex'), "TIS-620");
+    thaicard.CMD_ADDRESS = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ADDRESS), 'hex'), "TIS-620");
     for (let i = 0; i < thaicard.CMD_PHOTO.length; i++) {
         thaicard.CMD_PHOTO[i] = iconv.decode(Buffer.from(thaicard.CMD_PHOTO[i], 'hex'), "base64").replace('kAA=', '');
         thaicard.CMD_PHOTO_RAW += thaicard.CMD_PHOTO[i];
     }
-}
 
+    thaicard_master.citizen_id = thaicard.CMD_CID;
+
+    thaicard_master.en_name.prefix = thaicard.CMD_ENFULLNAME.split('#')[0];
+    thaicard_master.en_name.firstname = thaicard.CMD_ENFULLNAME.split('#')[1];
+    thaicard_master.en_name.lastname = thaicard.CMD_ENFULLNAME.split('#')[3];
+
+    thaicard_master.th_name.prefix = thaicard.CMD_THFULLNAME.split('#')[0];
+    thaicard_master.th_name.firstname = thaicard.CMD_THFULLNAME.split('#')[1];
+    thaicard_master.th_name.lastname = thaicard.CMD_THFULLNAME.split('#')[3];
+    
+    thaicard_master.gender = thaicard.CMD_GENDER;
+    thaicard_master.birth = thaicard.CMD_BIRTH;
+    thaicard_master.issue = thaicard.CMD_ISSUE;
+    thaicard_master.issuer = thaicard.CMD_ISSUER;
+    thaicard_master.expire = thaicard.CMD_EXPIRE;
+
+    console.log(thaicard_master);
+    
+}
+function replaceHex20(Hex){
+    Hex = Hex.split('900')[0];
+    return Hex.split('20')[0];
+}
 function loading(event) {
     count = count + 3;
     event.sender.send('loading', count);
