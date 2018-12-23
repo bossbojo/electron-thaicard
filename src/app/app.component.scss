@@ -1,0 +1,36 @@
+header{
+    background-color: #404040;
+    -webkit-app-region:drag;
+}
+
+.band{
+    -webkit-app-region:no-drag;
+    color: #bcbcbc;
+    font-weight: 600;
+}
+.frame-action{
+    span{
+        -webkit-app-region:no-drag;
+        transition: all 0.5s;
+        color: #c7c7c7;
+        background-color: #4b4b4b;
+        padding:0px 15px 0px 15px;
+        &:hover{
+            color: #ffffff;
+            background-color: #727272;
+        }
+    }
+}
+.full{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.btn{
+    position: relative;
+    i{
+        position: absolute;
+        top: 12px;
+        left: 10px;   
+    }
+}

@@ -1,0 +1,105 @@
+.card-thai{
+    position: relative;
+    font-family:"Angsana New";
+    .id-th{
+        top: 13px;
+        left: 205px;
+        position: absolute;
+        font-size: 40px;
+        font-weight: bold;
+    }
+    .full-name-th{
+        position: absolute;
+        top: 53px;
+        left: 150px;
+        font-size: 26px;
+        font-weight: bold;
+    }
+    .first-name-en{
+        top: 76px;
+        left: 190px;
+        position: absolute;
+        color: #00009c;
+        font-size: 21px;
+        font-weight: bold;
+    }
+    .last-name-en{
+        top: 98px;
+        left: 210px;
+        position: absolute;
+        color: #00009c;
+        font-size: 21px;
+        font-weight: bold;
+    }
+    .date-of-birth-th{
+        top: 117px;
+        left: 226px;
+        position: absolute;
+        font-size: 21px;
+        font-weight: bold;
+    }
+    .date-of-birth-en{
+        top: 134px;
+        left: 245px;
+        position: absolute;
+        color: #00009c;
+        font-size: 21px;
+        font-weight: bold;
+    }
+    .religion{
+        top: 152px;
+        left: 219px;
+        position: absolute;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .address{
+        top: 179px;
+        left: 85px;
+        position: absolute;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .issue-th{
+        top: 216px;
+        left: 56px;
+        position: absolute;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .issue-en{
+        top: 246px;
+        left: 56px;
+        position: absolute;
+        font-size: 17px;
+        color: #00009c;
+        font-weight: bold;
+    }
+    .expiry-th{
+        top: 216px;
+        left: 266px;
+        position: absolute;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .expiry-en{
+        top: 246px;
+        left: 266px;
+        color: #00009c;
+        position: absolute;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .issuer{
+        top: 245px;
+        left: 126px;
+        position: absolute;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .image{
+        top: 137px;
+        left: 386px;
+        position: absolute;
+    }
+}

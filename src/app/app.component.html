@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <ng-container *ngIf="status == 'removed' || status == 'activated'">
+    <div class="row justify-content-md-center align-items-center full">
+      <div class="col-5">
+        <div class="text-center">
+          <h3><i class="text-info fas fa-sign-in-alt"></i> กรุณาใส่บัตรประชาชนของท่าน</h3>
+          <br>
+          <img src="assets\card\card.gif" width="250px">
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="status == 'inserted'">
+    <div class="row justify-content-md-center align-items-center full">
+      <div class="col-4">
+        <p class="text-center">กำลังอ่านค่าข้อมูลจากบัตร <img src="assets/loading2.gif" width="35px"></p>
+        <div class="mb-2">
+          <progressbar max="100" [value]="loading" type="success" [striped]="true" [animate]="true"><i>{{loading}}%</i></progressbar>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="status == 'success'">
+    <div class="row justify-content-md-center align-items-center full">
+      <div class="text-center">
+        <div>
+          <app-card></app-card>
+        </div>
+        <hr>
+        <div>
+          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
+            เบี้ยยังชีพผู้สูงอายุ</button>
+          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
+            เบี้ยความพิการ</button>
+          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
+            เงินสงเคราะห์ผู้ป่วยเอดส์</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="status == 'error'">
+    <div class="row justify-content-md-center align-items-center full">
+      <div class="col-6 text-center">
+        <h3><i class="text-danger fas fa-exclamation-triangle"></i> การติดต่อกับบัตรหรือเครื่องสูญหาย
+          กรุณาถอดเเละเสียบบัตรใหม่อีกครั้ง</h3>
+        <img src="assets\card\card-remove.gif" width="250px">
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="status == 'deactivated'">
+    <div class="row justify-content-md-center align-items-center full">
+      <div class="col-6 text-center">
+        <h3><i class="text-danger fas fa-times-circle"></i> การติดต่อกับเครื่องเสียบบัตรสูญหาย</h3>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<!-- <router-outlet></router-outlet> -->
