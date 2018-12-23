@@ -23,8 +23,8 @@
   <ng-container *ngIf="status == 'success'">
     <div class="row justify-content-md-center align-items-center full">
       <div class="text-center">
-        <div>
-          <app-card></app-card>
+        <div *ngIf="response">
+          <app-card [Data]="response"></app-card>
         </div>
         <hr>
         <div>

@@ -142,6 +142,8 @@ ipcMain.on('on-active-reader-card', (event_, arg) => {
             device.on('card-inserted', event => {
                 count = 0;
                 event_.sender.send('status', `inserted`);
+                thaicard.CMD_PHOTO = [];
+                thaicard.CMD_PHOTO_RAW = '';
                 loading(event_);
                 console.log(`inserted`);
                 let card = event.card;
@@ -237,7 +239,7 @@ ipcMain.on('on-active-reader-card', (event_, arg) => {
                                                                                                                                         thaicard.CMD_PHOTO.push(res.data);
                                                                                                                                         console.log(`success`);
                                                                                                                                         ConverTIS620();
-                                                                                                                                        event_.sender.send('response', thaicard);
+                                                                                                                                        event_.sender.send('response', thaicard_master);
                                                                                                                                     });
                                                                                                                                 });
                                                                                                                             });
@@ -292,8 +294,6 @@ ipcMain.on('on-active-reader-card', (event_, arg) => {
 
 
 function ConverTIS620() {
-    console.log(thaicard.CMD_ENFULLNAME.split('900')[0]);
-    
     thaicard.CMD_CID = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_CID), 'hex'), "TIS-620");
     thaicard.CMD_THFULLNAME = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_THFULLNAME), 'hex'), "TIS-620");
     thaicard.CMD_ENFULLNAME = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ENFULLNAME), 'hex'), "TIS-620");
@@ -302,7 +302,7 @@ function ConverTIS620() {
     thaicard.CMD_ISSUER = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ISSUER), 'hex'), "TIS-620");
     thaicard.CMD_ISSUE = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ISSUE), 'hex'), "TIS-620");
     thaicard.CMD_EXPIRE = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_EXPIRE), 'hex'), "TIS-620");
-    thaicard.CMD_ADDRESS = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ADDRESS), 'hex'), "TIS-620");
+    thaicard.CMD_ADDRESS = iconv.decode(Buffer.from(thaicard.CMD_ADDRESS.split('900')[0], 'hex'), "TIS-620");
     for (let i = 0; i < thaicard.CMD_PHOTO.length; i++) {
         thaicard.CMD_PHOTO[i] = iconv.decode(Buffer.from(thaicard.CMD_PHOTO[i], 'hex'), "base64").replace('kAA=', '');
         thaicard.CMD_PHOTO_RAW += thaicard.CMD_PHOTO[i];
@@ -323,8 +323,18 @@ function ConverTIS620() {
     thaicard_master.issue = thaicard.CMD_ISSUE;
     thaicard_master.issuer = thaicard.CMD_ISSUER;
     thaicard_master.expire = thaicard.CMD_EXPIRE;
+    
+    const address =  thaicard.CMD_ADDRESS.split('####');
+    
+    thaicard_master.address.address1 = address[0].replace('#',' ');
+    thaicard_master.address.sub_district = address[1].split('#')[0];
+    thaicard_master.address.district = address[1].split('#')[1];
+    thaicard_master.address.provice = address[1].split('#')[2].split(' ')[0];
 
-    console.log(thaicard_master);
+    thaicard_master.photo = '';
+    thaicard_master.photo = thaicard.CMD_PHOTO_RAW;
+
+   // console.log(thaicard_master);
     
 }
 function replaceHex20(Hex){

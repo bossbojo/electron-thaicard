@@ -1,6 +1,6 @@
-<label class="card-thai">
+<label class="card-thai" *ngIf="Data">
     <img src="assets/card/card-temp.png" alt="" width="500px">
-    <span class="id-th">1&nbsp;3499&nbsp;00651&nbsp;84&nbsp;1</span>
+    <span class="id-th">{{Data.citizen_id}}</span>
     <span class="full-name-th">นาย ปรเมศร์  สิงห์ขรณ์</span>
     <span class="first-name-en">Mr.&nbsp;Paramat</span>
     <span class="last-name-en">Singkon</span>
@@ -14,6 +14,6 @@
     <span class="expiry-en">21 Sep 2024</span>
     <span class="issuer">อำเภอวารินชำราบ/อุบลราชธานี</span>
     <span class="image">
-      <img width="100px" [src]="'data:image/png;base64,'+Data.CMD_PHOTO_RAW">
+      <img width="100px" [src]="'data:image/png;base64,'+Data.photo">
     </span>
 </label>
