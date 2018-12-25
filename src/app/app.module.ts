@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxElectronModule } from 'ngx-electron';
 import { CardComponent } from './card/card.component';
+
+import { MomentModule } from 'ngx-moment';
 @NgModule({
    declarations: [
       AppComponent,
@@ -15,7 +17,8 @@ import { CardComponent } from './card/card.component';
       BrowserModule,
       AppRoutingModule,
       NgxElectronModule,
-      BootstrapModule
+      BootstrapModule,
+      MomentModule
    ],
    exports: [
       BootstrapModule

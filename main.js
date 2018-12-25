@@ -100,29 +100,29 @@ const thaicard = {
 }
 
 const thaicard_master = {
-    citizen_id:null,
-    th_name:{
-      prefix: null,
-      firstname: null,
-      lastname: null,
+    citizen_id: null,
+    th_name: {
+        prefix: null,
+        firstname: null,
+        lastname: null,
     },
-    en_name:{
-      prefix: null,
-      firstname: null,
-      lastname: null,
+    en_name: {
+        prefix: null,
+        firstname: null,
+        lastname: null,
     },
-    gender:null,
-    birth:null,
-    issuer:null,
-    issue:null,
-    expire:null,
-    address:{
-      address1: null,
-      sub_district: null,
-      district: null,
-      provice: null
+    gender: null,
+    birth: null,
+    issuer: null,
+    issue: null,
+    expire: null,
+    address: {
+        address1: null,
+        sub_district: null,
+        district: null,
+        provice: null
     },
-    photo :null,
+    photo: null,
 }
 
 var count = 0;
@@ -143,7 +143,6 @@ ipcMain.on('on-active-reader-card', (event_, arg) => {
                 count = 0;
                 event_.sender.send('status', `inserted`);
                 thaicard.CMD_PHOTO = [];
-                thaicard.CMD_PHOTO_RAW = '';
                 loading(event_);
                 console.log(`inserted`);
                 let card = event.card;
@@ -303,6 +302,7 @@ function ConverTIS620() {
     thaicard.CMD_ISSUE = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_ISSUE), 'hex'), "TIS-620");
     thaicard.CMD_EXPIRE = iconv.decode(Buffer.from(replaceHex20(thaicard.CMD_EXPIRE), 'hex'), "TIS-620");
     thaicard.CMD_ADDRESS = iconv.decode(Buffer.from(thaicard.CMD_ADDRESS.split('900')[0], 'hex'), "TIS-620");
+    thaicard.CMD_PHOTO_RAW = ''
     for (let i = 0; i < thaicard.CMD_PHOTO.length; i++) {
         thaicard.CMD_PHOTO[i] = iconv.decode(Buffer.from(thaicard.CMD_PHOTO[i], 'hex'), "base64").replace('kAA=', '');
         thaicard.CMD_PHOTO_RAW += thaicard.CMD_PHOTO[i];
@@ -317,16 +317,17 @@ function ConverTIS620() {
     thaicard_master.th_name.prefix = thaicard.CMD_THFULLNAME.split('#')[0];
     thaicard_master.th_name.firstname = thaicard.CMD_THFULLNAME.split('#')[1];
     thaicard_master.th_name.lastname = thaicard.CMD_THFULLNAME.split('#')[3];
-    
+
     thaicard_master.gender = thaicard.CMD_GENDER;
-    thaicard_master.birth = thaicard.CMD_BIRTH;
-    thaicard_master.issue = thaicard.CMD_ISSUE;
+
+    thaicard_master.birth = stringtoDate(thaicard.CMD_BIRTH);
+    thaicard_master.issue = stringtoDate(thaicard.CMD_ISSUE);
+    thaicard_master.expire = stringtoDate(thaicard.CMD_EXPIRE);
     thaicard_master.issuer = thaicard.CMD_ISSUER;
-    thaicard_master.expire = thaicard.CMD_EXPIRE;
-    
-    const address =  thaicard.CMD_ADDRESS.split('####');
-    
-    thaicard_master.address.address1 = address[0].replace('#',' ');
+
+    const address = thaicard.CMD_ADDRESS.split('####');
+
+    thaicard_master.address.address1 = address[0].replace('#', ' ');
     thaicard_master.address.sub_district = address[1].split('#')[0];
     thaicard_master.address.district = address[1].split('#')[1];
     thaicard_master.address.provice = address[1].split('#')[2].split(' ')[0];
@@ -334,10 +335,10 @@ function ConverTIS620() {
     thaicard_master.photo = '';
     thaicard_master.photo = thaicard.CMD_PHOTO_RAW;
 
-   // console.log(thaicard_master);
-    
+  //  console.log(thaicard_master);
+
 }
-function replaceHex20(Hex){
+function replaceHex20(Hex) {
     Hex = Hex.split('900')[0];
     return Hex.split('20')[0];
 }
@@ -351,4 +352,10 @@ function loading(event) {
             event.sender.send('status', `success`);
         }, 500);
     }
+}
+function stringtoDate(str) {
+    const yyyy = parseInt(str.substring(0, 4)) - 543;
+    const mm = str.substring(4, 6);
+    const dd = str.substring(6, 9);
+    return new Date(yyyy + '-' + mm + '-' + dd);
 }

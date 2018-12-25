@@ -7,7 +7,7 @@ import { ModelCard } from '../model';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() Data : ModelCard;
+  @Input() Data: ModelCard;
   constructor() { }
 
   ngOnInit() {

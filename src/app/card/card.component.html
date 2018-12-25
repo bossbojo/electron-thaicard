@@ -1,19 +1,20 @@
 <label class="card-thai" *ngIf="Data">
-    <img src="assets/card/card-temp.png" alt="" width="500px">
-    <span class="id-th">{{Data.citizen_id}}</span>
-    <span class="full-name-th">นาย ปรเมศร์  สิงห์ขรณ์</span>
-    <span class="first-name-en">Mr.&nbsp;Paramat</span>
-    <span class="last-name-en">Singkon</span>
-    <span class="date-of-birth-th">22 ก.ย 2537</span>
-    <span class="date-of-birth-en">22 Sep 1994</span>
-    <span class="religion">พุทธ</span>
-    <span class="address">35 หมู่ที่ 3 ตำบลบุ่งหวาย อำเภอวารินชำราบ จังหวัดอุบลราชธานี</span>
-    <span class="issue-th">22 ก.ค. 2559</span>
-    <span class="issue-en">22 Jul 2016</span>
-    <span class="expiry-th">21 ก.ย. 2567</span>
-    <span class="expiry-en">21 Sep 2024</span>
-    <span class="issuer">อำเภอวารินชำราบ/อุบลราชธานี</span>
-    <span class="image">
-      <img width="100px" [src]="'data:image/png;base64,'+Data.photo">
-    </span>
+  <img src="assets/card/card-temp.png" alt="" width="500px">
+  <span class="id-th">{{Data.citizen_id}}</span>
+  <span class="full-name-th">{{Data.th_name.prefix}} {{Data.th_name.firstname}} {{Data.th_name.lastname}}</span>
+  <span class="first-name-en">{{Data.en_name.prefix}}&nbsp;{{Data.en_name.firstname}}</span>
+  <span class="last-name-en">{{Data.en_name.lastname}}</span>
+  <span class="date-of-birth-th">{{ Data.birth | amAdd: 543 : 'years' | amLocale:'th' | amDateFormat:'DD MMM YYYY' }}</span>
+  <span class="date-of-birth-en">{{ Data.birth | amDateFormat:'DD MMM YYYY' }}</span>
+  <span class="religion">พุทธ</span>
+  <span class="address">{{Data.address.address1}} {{Data.address.sub_district}} {{Data.address.district}}</span>
+  <span class="address2">{{Data.address.provice}}</span>
+  <span class="issue-th">{{ Data.issue | amAdd: 543 : 'years' | amLocale:'th' | amDateFormat:'DD MMM YYYY' }}</span>
+  <span class="issue-en">{{ Data.issue | amDateFormat:'DD MMM YYYY' }}</span>
+  <span class="expiry-th">{{ Data.expire | amAdd: 543 : 'years' | amLocale:'th' | amDateFormat:'DD MMM YYYY' }}</span>
+  <span class="expiry-en">{{ Data.expire | amDateFormat:'DD MMM YYYY' }}</span>
+  <span class="issuer">{{Data.issuer}}</span>
+  <span class="image">
+    <img width="100px" [src]="'data:image/png;base64,'+Data.photo">
+  </span>
 </label>
