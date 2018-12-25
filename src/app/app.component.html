@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <ng-container *ngIf="status == 'removed' || status == 'activated'">
     <div class="row justify-content-md-center align-items-center full">
       <div class="col-5">
@@ -28,7 +28,7 @@
         </div>
         <hr>
         <div>
-          <!-- <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
+          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
             เบี้ยยังชีพผู้สูงอายุ
           </button>
           <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
@@ -36,7 +36,7 @@
           </button>
           <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
             เงินสงเคราะห์ผู้ป่วยเอดส์
-          </button> -->
+          </button>
         </div>
       </div>
     </div>
@@ -57,5 +57,65 @@
       </div>
     </div>
   </ng-container>
+</div> -->
+<nav class="uk-navbar-container uk-animation-fade" uk-navbar>
+  <div class="uk-navbar-left">
+
+    <ul class="uk-navbar-nav">
+      <li class="uk-active"><a href="#"></a></li>
+    </ul>
+
+  </div>
+</nav>
+<div class="container-fluid uk-animation-fade">
+  <div class="row">
+    <div class="col-7">
+      <div>
+        <p class="title">ข้อมูลผู้ยืนคำร้อง</p>
+        <div class="row">
+          <div class="col-12">
+            <div class="uk-grid-small uk-child-width-1-1 uk-flex-center" uk-grid>
+              <div>
+                <div class="uk-card uk-card-default uk-card-body">Item 1</div>
+              </div>
+            </div>
+            <div class="uk-grid-small uk-child-width-1-2 uk-flex-center" uk-grid>
+              <div>
+                <button class="uk-button uk-button-default uk-width-1-1">
+                  <span uk-icon="plus-circle"></span> เพิ่มผู้เดินเรื่องเเทน
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div>
+        <p class="title">ข้อมูลผู้เดินเรื่องเเทน</p>
+        <div class="row">
+          <div class="col-12">
+            <div class="uk-grid-small uk-child-width-1-1 uk-flex-center" uk-grid>
+              <div>
+                <div class="uk-card uk-card-default uk-card-body">Item 1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-5 box-manu" style="padding: 0px;">
+      <div class="uk-card uk-card-default uk-card-body uk-width-1-1" style="height: 1200px;">
+        <p class="title"><span uk-icon="question"></span> กรุณาเลือกธุระกรรม</p>
+        <button class="uk-button uk-button-default uk-width-1-1">
+          <span uk-icon="chevron-right"></span> เบี้ยยังชีพผู้สูงอายุ
+        </button>
+        <button class="uk-button uk-button-default uk-width-1-1">
+          <span uk-icon="chevron-right"></span> เบี้ยความพิการ
+        </button>
+        <button class="uk-button uk-button-default uk-width-1-1">
+          <span uk-icon="chevron-right"></span> เงินสงเคราะห์ผู้ป่วยเอดส์
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- <router-outlet></router-outlet> -->

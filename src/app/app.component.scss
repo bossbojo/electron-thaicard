@@ -1,36 +1,17 @@
-header{
-    background-color: #404040;
-    -webkit-app-region:drag;
+.title{
+ font-size: 30px;
 }
-
-.band{
-    -webkit-app-region:no-drag;
-    color: #bcbcbc;
-    font-weight: 600;
-}
-.frame-action{
-    span{
-        -webkit-app-region:no-drag;
-        transition: all 0.5s;
-        color: #c7c7c7;
-        background-color: #4b4b4b;
-        padding:0px 15px 0px 15px;
-        &:hover{
-            color: #ffffff;
-            background-color: #727272;
-        }
-    }
-}
-.full{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-.btn{
+.uk-button{
     position: relative;
-    i{
+    padding: 20px;
+    margin-top: 5px;
+    font-size: 25px;
+    span{
         position: absolute;
-        top: 12px;
-        left: 10px;   
+        top: 30px;
+        left: 15px;
     }
+}
+.uk-navbar-container{
+    background-color: #8cc6ff;
 }
