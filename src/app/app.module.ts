@@ -8,10 +8,12 @@ import { NgxElectronModule } from 'ngx-electron';
 import { CardComponent } from './card/card.component';
 
 import { MomentModule } from 'ngx-moment';
+import { Card2Component } from './card2/card2.component';
 @NgModule({
    declarations: [
       AppComponent,
-      CardComponent
+      CardComponent,
+      Card2Component
    ],
    imports: [
       BrowserModule,

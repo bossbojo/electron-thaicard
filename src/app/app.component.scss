@@ -11,6 +11,16 @@
         top: 30px;
         left: 15px;
     }
+    img{
+        position: absolute;
+        top: 18px;
+        right: 15px;
+        width: 40px;
+    }
+    &:active{
+        background-color: #8cc6ff;
+        color: white;
+    }
 }
 .uk-navbar-container{
     background-color: #8cc6ff;

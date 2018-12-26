@@ -1,28 +1,31 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef, ViewChild } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { getLocalStorage } from './windows';
 import { ModelCard } from './model';
 
+declare let UIkit;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Angular && Electron';
+  @ViewChild('modalfull') model1: Element;
   Maximize: Boolean = true;
-  status: any = '';
+  status: any = 'activated';
   loading: any;
   response: ModelCard;
-  constructor(private _electronService: ElectronService, private zone: NgZone) {
-    // console.log(getLocalStorage().getItem('maincard'));
-    
-    // this.response = <ModelCard>JSON.parse(getLocalStorage().getItem('maincard'));
-    // console.log(this.response.citizen_id);
-    
-  }
+  response2: ModelCard;
+  payload = {
+    option: 0,
+    choose: 0,
+    info1: null,
+    info2: null
+  };
+  constructor(private _electronService: ElectronService, private zone: NgZone) { }
   ngOnInit() {
     this.OnActiveCardReader();
+    UIkit.modal('#modalfull').show();
   }
   OnActiveCardReader() {
     if (this._electronService.isElectronApp) {
@@ -35,7 +38,6 @@ export class AppComponent implements OnInit {
       this._electronService.ipcRenderer.on('status', (event: any, arg: any) => {
         this.zone.run(() => {
           this.OnSetStatus(arg);
-          //console.log(this.status);
         });
       });
       this._electronService.ipcRenderer.on('loading', (event: any, arg: any) => {
@@ -50,13 +52,40 @@ export class AppComponent implements OnInit {
     this.loading = data;
   }
   OnSetResponse(data) {
-    console.log(data);
-    
-    this.response = <ModelCard>data;
-    //getLocalStorage().setItem('maincard', JSON.stringify(data));
+    if (this.payload.option === 0) {
+      this.response = <ModelCard>data;
+      this.payload.info1 = this.response;
+    } else {
+      this.response2 = <ModelCard>data;
+      this.payload.info2 = this.response2;
+    }
   }
   OnSetStatus(data) {
     this.status = data;
+    if (this.status === 'success') {
+      UIkit.modal('#modalfull').hide();
+    } else {
+      UIkit.modal('#modalfull').show();
+      if (this.payload.option !== 1) {
+        this.payload.choose = 0;
+        this.payload.option = 0;
+        this.payload.info1 = null;
+        this.payload.info2 = null;
+      }
+    }
+  }
+  OnAddMan() {
+    this.payload.option = 1;
+    this.status = 'waitMan';
+  }
+  OnCancelInfo2() {
+    this.response2 = null;
+    this.payload.option = 0;
+    this.payload.info2 = null;
+  }
+  OnPick(num) {
+    this.payload.choose = num;
+    console.log(this.payload);
   }
   OnMinimizeWindow() {
     if (this._electronService.isElectronApp) {

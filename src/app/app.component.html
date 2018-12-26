@@ -1,63 +1,3 @@
-<!-- <div class="container-fluid">
-  <ng-container *ngIf="status == 'removed' || status == 'activated'">
-    <div class="row justify-content-md-center align-items-center full">
-      <div class="col-5">
-        <div class="text-center">
-          <h3><i class="text-info fas fa-sign-in-alt"></i> กรุณาใส่บัตรประชาชนของท่าน</h3>
-          <br>
-          <img src="assets\card\card.gif" width="250px">
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="status == 'inserted'">
-    <div class="row justify-content-md-center align-items-center full">
-      <div class="col-4">
-        <p class="text-center">กำลังอ่านค่าข้อมูลจากบัตร <img src="assets/loading2.gif" width="35px"></p>
-        <div class="mb-2">
-          <progressbar max="100" [value]="loading" type="success" [striped]="true" [animate]="true"><i>{{loading}}%</i></progressbar>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="status == 'success'">
-    <div class="row justify-content-md-center align-items-center full">
-      <div class="text-center">
-        <div *ngIf="response">
-          <app-card [Data]="response"></app-card>
-        </div>
-        <hr>
-        <div>
-          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
-            เบี้ยยังชีพผู้สูงอายุ
-          </button>
-          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
-            เบี้ยความพิการ
-          </button>
-          <button class="btn btn-info mb-2" style="width: 100%;"><i class="fas fa-caret-square-right"></i>
-            เงินสงเคราะห์ผู้ป่วยเอดส์
-          </button>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="status == 'error'">
-    <div class="row justify-content-md-center align-items-center full">
-      <div class="col-6 text-center">
-        <h3><i class="text-danger fas fa-exclamation-triangle"></i> การติดต่อกับบัตรหรือเครื่องสูญหาย
-          กรุณาถอดเเละเสียบบัตรใหม่อีกครั้ง</h3>
-        <img src="assets\card\card-remove.gif" width="250px">
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="status == 'deactivated'">
-    <div class="row justify-content-md-center align-items-center full">
-      <div class="col-6 text-center">
-        <h3><i class="text-danger fas fa-times-circle"></i> การติดต่อกับเครื่องเสียบบัตรสูญหาย</h3>
-      </div>
-    </div>
-  </ng-container>
-</div> -->
 <nav class="uk-navbar-container uk-animation-fade" uk-navbar>
   <div class="uk-navbar-left">
 
@@ -72,16 +12,12 @@
     <div class="col-7">
       <div>
         <p class="title">ข้อมูลผู้ยืนคำร้อง</p>
-        <div class="row">
+        <app-card2 [Data]="response"></app-card2>
+        <div class="row" *ngIf="payload.option == 0">
           <div class="col-12">
-            <div class="uk-grid-small uk-child-width-1-1 uk-flex-center" uk-grid>
-              <div>
-                <div class="uk-card uk-card-default uk-card-body">Item 1</div>
-              </div>
-            </div>
             <div class="uk-grid-small uk-child-width-1-2 uk-flex-center" uk-grid>
               <div>
-                <button class="uk-button uk-button-default uk-width-1-1">
+                <button class="uk-button uk-button-default uk-width-1-1" href="#modalfull" uk-toggle (click)="OnAddMan()">
                   <span uk-icon="plus-circle"></span> เพิ่มผู้เดินเรื่องเเทน
                 </button>
               </div>
@@ -90,31 +26,70 @@
         </div>
       </div>
       <hr>
-      <div>
+      <div *ngIf="response2">
         <p class="title">ข้อมูลผู้เดินเรื่องเเทน</p>
-        <div class="row">
-          <div class="col-12">
-            <div class="uk-grid-small uk-child-width-1-1 uk-flex-center" uk-grid>
-              <div>
-                <div class="uk-card uk-card-default uk-card-body">Item 1</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-card2 [Data]="response2"></app-card2>
+        <a (click)="OnCancelInfo2()">ยกเลิกการเดินเรื่องเเทน</a>
       </div>
     </div>
     <div class="col-5 box-manu" style="padding: 0px;">
       <div class="uk-card uk-card-default uk-card-body uk-width-1-1" style="height: 1200px;">
         <p class="title"><span uk-icon="question"></span> กรุณาเลือกธุระกรรม</p>
-        <button class="uk-button uk-button-default uk-width-1-1">
-          <span uk-icon="chevron-right"></span> เบี้ยยังชีพผู้สูงอายุ
+        <button class="uk-button uk-button-default uk-width-1-1" (click)="OnPick(1)">
+          <span uk-icon="chevron-right"></span> เบี้ยยังชีพผู้สูงอายุ <img src="assets/icon/1.png">
         </button>
-        <button class="uk-button uk-button-default uk-width-1-1">
-          <span uk-icon="chevron-right"></span> เบี้ยความพิการ
+        <button class="uk-button uk-button-default uk-width-1-1" (click)="OnPick(2)">
+          <span uk-icon="chevron-right"></span> เบี้ยความพิการ <img src="assets/icon/2.png">
         </button>
-        <button class="uk-button uk-button-default uk-width-1-1">
-          <span uk-icon="chevron-right"></span> เงินสงเคราะห์ผู้ป่วยเอดส์
+        <button class="uk-button uk-button-default uk-width-1-1" (click)="OnPick(3)">
+          <span uk-icon="chevron-right"></span> เงินสงเคราะห์ผู้ป่วยเอดส์ <img src="assets/icon/3.png">
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalfull" class="uk-modal-full" uk-modal #modalfull>
+  <div class="uk-modal-dialog">
+    <button *ngIf="payload.option == 1" class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+    <div class="uk-grid-collapse uk-child-width-1-1 uk-flex-middle" uk-grid uk-height-viewport>
+      <div class="uk-grid-small uk-child-width-1-2 uk-flex-center uk-text-center" uk-grid>
+
+        <div class="row" *ngIf="status == 'removed' || status == 'activated'">
+          <div class="col-12">
+            <p class="title"><span uk-icon="sign-in"></span> กรุณาใส่บัตรประชาชนของท่าน</p>
+            <img src="assets\card\card.gif" width="150px">
+          </div>
+        </div>
+
+        <div class="row" *ngIf="status == 'inserted'">
+          <div class="col-12">
+            <div uk-spinner="ratio: 1">กำลังอ่านค่าข้อมูลจากบัตร </div>
+          </div>
+          <div class="col-12">
+            <progress class="uk-progress" value="{{loading}}" max="100"></progress>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="status == 'error' || status == 'deactivated'">
+          <div class="col-12">
+            <p class="title">
+              <span class="text-danger" uk-icon="warning"></span>
+              การติดต่อกับบัตรหรือเครื่องสูญหาย<br>
+              กรุณาถอดเเละเสียบบัตรใหม่อีกครั้ง
+            </p>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="status == 'waitMan'">
+          <div class="col-12">
+            <p class="title">
+              <span class="text-danger" uk-icon="bell"></span>
+              กรุณาถอดบัตร<br>
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

@@ -1,0 +1,30 @@
+<div class="row" *ngIf="Data">
+  <div class="col-12">
+    <div class="uk-grid-small uk-child-width-1-1 uk-flex-center" uk-grid>
+      <div>
+        <div class="uk-dark uk-background-muted" style="padding: 20px;">
+          <div class="row">
+            <div class="col-2" style="margin-top:25px;">
+              <img width="100px" [src]="'data:image/png;base64,'+Data.photo" uk-scrollspy="cls: uk-animation-kenburns; repeat: true">
+            </div>
+            <div class="col-10">
+              <div class="row">
+                <div class="col-6">
+                  <p class="citizenId">{{Data.citizen_id}}</p>
+                  <p class="full-name-th">{{Data.th_name.prefix}} {{Data.th_name.firstname}} {{Data.th_name.lastname}}</p>
+                  <p class="full-name-en">{{Data.en_name.prefix}}&nbsp;{{Data.en_name.firstname}}&nbsp;{{Data.en_name.lastname}}</p>
+                  <p class="birh-day">{{ Data.birth | amAdd: 543 : 'years' | amLocale:'th' | amDateFormat:'DD MMMM YYYY' }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="birh-day">ที่อยู่ : {{Data.address.address1}} {{Data.address.sub_district}} {{Data.address.district}} {{Data.address.provice}}</p>
+                    <p class="birh-day">วันออกบัตร : {{ Data.issue | amAdd: 543 : 'years' | amLocale:'th' | amDateFormat:'DD MMM YYYY' }}</p>
+                    <p class="birh-day">วันหมดอายุบัตร : {{ Data.expire | amAdd: 543 : 'years' | amLocale:'th' | amDateFormat:'DD MMM YYYY' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
